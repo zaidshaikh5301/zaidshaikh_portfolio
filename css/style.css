@@ -1,0 +1,1411 @@
+/* ==========================================================================
+   Mohamad Zaid A. Shaikh — Portfolio stylesheet
+   --------------------------------------------------------------------------
+   Contents
+     1.  Design tokens
+     2.  Reset & base
+     3.  Layout primitives
+     4.  Buttons, links, tags
+     5.  Header / navigation
+     6.  Hero
+     7.  About
+     8.  Skills
+     9.  Projects
+     10. Experience
+     11. Education
+     12. Contact
+     13. Footer
+     14. Motion utilities + reduced motion
+     15. Print
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. DESIGN TOKENS
+   --------------------------------------------------------------------------
+   One accent (a warm vermilion) on a warm neutral ramp. Light and dark values
+   live side by side in a single declaration each, resolved natively by
+   `color-scheme` + `light-dark()` — so there is exactly one copy of every
+   token and zero duplication to keep in sync.
+   ========================================================================== */
+
+:root {
+  /* ---- Colour (light | dark) ---- */
+  color-scheme: light dark;
+
+  --bg:            light-dark(#faf9f7, #0b0b0a);  /* page background            */
+  --bg-alt:        light-dark(#f2efea, #111110);  /* alternating section band  */
+  --surface:       light-dark(#ffffff, #151514);  /* cards, inputs             */
+  --surface-2:     light-dark(#f2efea, #1d1d1b);  /* chips, code-ish surfaces  */
+  --surface-3:     light-dark(#e9e5df, #262624);  /* hover states on soft UI   */
+
+  --text:          light-dark(#191917, #f3f1ee);  /* primary text              */
+  --text-muted:    light-dark(#57534b, #a8a49c);  /* secondary text (7.3:1)   */
+  --text-faint:    light-dark(#6f695f, #8a8680);  /* tertiary text (5.1:1)    */
+
+  --border:        light-dark(#e4dfd7, #2b2b28);
+  --border-strong: light-dark(#cdc6ba, #3d3d38);
+
+  --accent:        light-dark(#b8410e, #fb923c);  /* 4.9:1 on --bg (light)     */
+  --accent-strong: light-dark(#96330a, #fdba74);
+  --accent-soft:   light-dark(#fdeee6, #2a1710);  /* tinted backgrounds        */
+  --on-accent:     light-dark(#fff7f3, #1b1207);  /* text placed on --accent   */
+
+  /* Project status. Both pairs are AA on their own tinted background:
+     done 5.8:1 light / 9.8:1 dark, wip 5.7:1 light / 11.2:1 dark. */
+  --status-done:    light-dark(#146c34, #5ee08a);
+  --status-done-bg: light-dark(#e8f5ec, #0f2418);
+  --status-wip:     light-dark(#8a5205, #fcd34d);
+  --status-wip-bg:  light-dark(#fdf3e0, #2a1f0c);
+
+  --focus:         light-dark(#b8410e, #fdba74);
+
+  --shadow-sm: 0 1px 2px rgb(25 25 23 / 0.05), 0 1px 1px rgb(25 25 23 / 0.03);
+  --shadow-md: 0 4px 12px -2px rgb(25 25 23 / 0.08), 0 2px 4px -2px rgb(25 25 23 / 0.04);
+  --shadow-lg: 0 18px 40px -18px rgb(25 25 23 / 0.22), 0 4px 12px -4px rgb(25 25 23 / 0.08);
+
+  /* Explicit overrides chosen by the JS toggle. No data-theme attribute means
+     "follow the visitor's OS setting". */
+  --nav-h: 4.25rem;
+  --container: 68rem;
+  --gutter: 1.25rem;
+  --radius-sm: 0.5rem;
+  --radius: 0.75rem;
+  --radius-lg: 1.125rem;
+
+  /* ---- Type ---- */
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --step--1: clamp(0.8125rem, 0.79rem + 0.11vw, 0.875rem);
+  --step-0:  clamp(0.9375rem, 0.9rem + 0.18vw, 1.0625rem);
+  --step-1:  clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --step-2:  clamp(1.25rem, 1.14rem + 0.55vw, 1.5rem);
+  --step-3:  clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --step-4:  clamp(1.875rem, 1.5rem + 1.9vw, 2.75rem);
+  --step-5:  clamp(2.25rem, 1.6rem + 3.2vw, 3.75rem);
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* User picked light / dark explicitly -> pin color-scheme so light-dark() locks. */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }
+
+
+/* ==========================================================================
+   2. RESET & BASE
+   ========================================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Safety net against a stray wide element. `clip` (not `hidden`) is used
+     deliberately: it never turns the element into a scroll container, so
+     `position: sticky` on the header keeps working. */
+  overflow-x: clip;
+  /* Section colour bands are painted by the sections themselves, so the page
+     never flashes a wrong colour while scrolling. */
+  transition: background-color 0.25s var(--ease);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--text);
+}
+
+p { text-wrap: pretty; }
+
+img, svg, video { display: block; max-width: 100%; }
+img { height: auto; }
+
+ul, ol { list-style: none; padding: 0; }
+
+button, input, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* Visible, consistent focus ring for keyboard users only. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+::selection {
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
+[hidden] { display: none !important; }
+
+/* Collapsed sprite: not display:none, which breaks <use> references. */
+.icon-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+
+/* ==========================================================================
+   3. LAYOUT PRIMITIVES
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(3.5rem, 2.5rem + 5vw, 7rem);
+  scroll-margin-top: var(--nav-h);
+  /* Cross-fades with <body> so a theme switch never flashes a mismatched band. */
+  transition: background-color 0.25s var(--ease);
+}
+.section--alt { background-color: var(--bg-alt); }
+
+.section__head { margin-bottom: clamp(2rem, 1.4rem + 2.5vw, 3.25rem); max-width: 46rem; }
+.section__head--split {
+  max-width: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.section__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.875rem;
+}
+.section__eyebrow-num {
+  color: var(--accent);
+  font-weight: 600;
+}
+/* Thin rule between the number and the label. */
+.section__eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--border);
+  max-width: 5rem;
+}
+
+.section__title { font-size: var(--step-4); }
+.section__lede {
+  margin-top: 0.875rem;
+  font-size: var(--step-1);
+  color: var(--text-muted);
+  max-width: 40rem;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.625rem 1rem;
+  background-color: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+  font-size: var(--step--1);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transform: translateY(-150%);
+  transition: transform 0.2s var(--ease);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* Available to screen readers, invisible on screen. Used to give repeated
+   controls (project buttons, status pills) the context they lose when
+   read out of sequence. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* ==========================================================================
+   4. BUTTONS, LINKS, TAGS
+   ========================================================================== */
+
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--text);
+  --btn-border: var(--border-strong);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  min-height: 2.875rem;
+  background-color: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1px solid var(--btn-border);
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s var(--ease),
+              color 0.2s var(--ease),
+              border-color 0.2s var(--ease),
+              transform 0.2s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn__icon { width: 1.125rem; height: 1.125rem; flex: none; }
+
+.btn--primary {
+  --btn-bg: var(--accent);
+  --btn-fg: var(--on-accent);
+  --btn-border: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+.btn--primary:hover {
+  --btn-bg: var(--accent-strong);
+  --btn-border: var(--accent-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--text); }
+.btn--ghost:hover {
+  --btn-bg: var(--surface-2);
+  --btn-border: var(--border-strong);
+}
+
+.btn--sm { padding: 0.5rem 0.9375rem; min-height: 2.375rem; font-size: var(--step--1); }
+.btn--block { width: 100%; }
+
+/* Disabled / in-flight state, driven by the form submit handler. */
+.btn[aria-busy="true"] { opacity: 0.65; pointer-events: none; }
+
+.link {
+  color: var(--text);
+  text-decoration-color: var(--border-strong);
+  transition: color 0.18s var(--ease), text-decoration-color 0.18s var(--ease);
+}
+.link:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4375rem;
+}
+.tag {
+  padding: 0.25rem 0.625rem;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.tag-list--compact .tag { font-size: 0.6875rem; padding: 0.1875rem 0.5rem; }
+
+
+/* ==========================================================================
+   5. HEADER / NAVIGATION
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s var(--ease),
+              background-color 0.2s var(--ease),
+              box-shadow 0.2s var(--ease);
+}
+/* .is-stuck is toggled by main.js once the page scrolls. */
+.site-header.is-stuck {
+  border-bottom-color: var(--border);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.site-header__inner {
+  min-height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--accent);
+  color: var(--on-accent);
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.brand__text { font-size: 0.9375rem; }
+
+.nav-toggle {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  transition: background-color 0.18s var(--ease), border-color 0.18s var(--ease);
+}
+.nav-toggle:hover { background-color: var(--surface-2); border-color: var(--border-strong); }
+.nav-toggle__icon { width: 1.375rem; height: 1.375rem; grid-area: 1 / 1; }
+.nav-toggle__icon--close { display: none; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__icon--open { display: none; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__icon--close { display: block; }
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: absolute;
+  top: calc(var(--nav-h) - 0.25rem);
+  left: var(--gutter);
+  right: var(--gutter);
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 0.5rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  /* Collapsed by default; `visibility` also removes it from the tab order. */
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease), visibility 0.2s;
+}
+.nav.is-open { visibility: visible; opacity: 1; transform: translateY(0); }
+
+.nav__list { display: flex; flex-direction: column; gap: 0.125rem; }
+
+.nav__link {
+  display: block;
+  padding: 0.6875rem 0.875rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.18s var(--ease), background-color 0.18s var(--ease);
+}
+.nav__link:hover { color: var(--text); background-color: var(--surface-2); }
+.nav__link.is-active { color: var(--accent); font-weight: 600; }
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 0.5rem;
+  align-self: flex-end;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text);
+  transition: background-color 0.18s var(--ease), border-color 0.18s var(--ease);
+}
+.theme-toggle:hover { background-color: var(--surface-3); border-color: var(--border-strong); }
+.theme-toggle__icon { width: 1.125rem; height: 1.125rem; grid-area: 1 / 1; }
+/* Both icons share one grid cell; we show the one you would switch *to*.
+   Light mode -> offer the moon. Dark mode -> offer the sun. */
+.theme-toggle__icon--moon { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle__icon--sun  { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle__icon--moon { display: block; }
+}
+:root[data-theme="dark"] .theme-toggle__icon--sun  { display: none; }
+:root[data-theme="dark"] .theme-toggle__icon--moon { display: block; }
+
+
+/* ==========================================================================
+   6. HERO
+   ========================================================================== */
+
+.hero { padding-block: clamp(2.5rem, 1.5rem + 5vw, 5.5rem) clamp(3rem, 2rem + 4vw, 6rem); }
+
+.hero__inner {
+  display: grid;
+  gap: clamp(2.5rem, 2rem + 3vw, 4rem);
+  align-items: center;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3125rem 0.75rem 0.3125rem 0.5625rem;
+  background-color: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 100px;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+}
+.status-badge__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent);
+  animation: pulse 2.4s var(--ease) infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); }
+  70%  { box-shadow: 0 0 0 0.5rem transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.hero__title {
+  font-size: var(--step-5);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  margin-bottom: 0.75rem;
+}
+
+.hero__role {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.015em;
+  margin-bottom: 1rem;
+}
+.hero__role-sep { color: var(--accent); margin-inline: 0.35em; }
+.hero__role-muted {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0;
+  margin-top: 0.25rem;
+}
+
+.hero__tagline {
+  font-size: var(--step-1);
+  color: var(--text-muted);
+  max-width: 34rem;
+  margin-bottom: 2rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.social-list { display: flex; gap: 0.5rem; }
+.social-link {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text-muted);
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease),
+              transform 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+.social-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background-color: var(--accent-soft);
+  transform: translateY(-3px);
+}
+.social-link__icon { width: 1.125rem; height: 1.125rem; }
+
+/* ---- Hero visual: framed portrait + caption plate ---- */
+.hero__visual { display: grid; gap: 1rem; justify-items: stretch; }
+
+.portrait {
+  position: relative;
+  margin: 0;
+  isolation: isolate;
+}
+.portrait__img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  background-color: var(--surface-2);
+}
+/* Offset accent plate peeking out behind the photo. */
+.portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0.875rem -0.875rem -0.875rem 0.875rem;
+  z-index: -1;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-lg);
+  opacity: 0.55;
+}
+/* Small corner ticks — a hand-drawn, non-templated detail. */
+.portrait__tick {
+  position: absolute;
+  width: 0.875rem;
+  height: 0.875rem;
+  border: 1.5px solid var(--accent);
+}
+.portrait__tick--tl { top: -0.375rem; left: -0.375rem; border-right: 0; border-bottom: 0; border-radius: 4px 0 0 0; }
+.portrait__tick--tr { top: -0.375rem; right: -0.375rem; border-left: 0; border-bottom: 0; border-radius: 0 4px 0 0; }
+.portrait__tick--bl { bottom: -0.375rem; left: -0.375rem; border-right: 0; border-top: 0; border-radius: 0 0 0 4px; }
+.portrait__tick--br { bottom: -0.375rem; right: -0.375rem; border-left: 0; border-top: 0; border-radius: 0 0 4px 0; }
+
+.hero-facts {
+  display: grid;
+  gap: 0.125rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.375rem;
+  margin: 0;
+}
+.hero-facts__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+}
+.hero-facts__row + .hero-facts__row { border-top: 1px solid var(--border); }
+.hero-facts__key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.hero-facts__icon { width: 1rem; height: 1rem; color: var(--accent); }
+.hero-facts__val {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text);
+  text-align: right;
+}
+
+
+/* ==========================================================================
+   7. ABOUT
+   ========================================================================== */
+
+.about__grid { display: grid; gap: clamp(2rem, 1.5rem + 2vw, 3rem); }
+
+.about__text { display: grid; gap: 1rem; color: var(--text-muted); max-width: 40rem; }
+.about__text p:first-child { color: var(--text); font-size: var(--step-1); }
+
+.fact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.875rem;
+}
+
+.fact-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.fact-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.fact-card__icon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: 0.875rem;
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+}
+.fact-card__icon svg { width: 1.125rem; height: 1.125rem; }
+.fact-card__title { font-size: var(--step-0); margin-bottom: 0.375rem; }
+.fact-card__text { font-size: var(--step--1); color: var(--text-muted); }
+
+
+/* ==========================================================================
+   8. SKILLS
+   ========================================================================== */
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 0.875rem;
+}
+
+.skill-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.skill-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
+
+.skill-card__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--step-1);
+  margin-bottom: 1rem;
+}
+.skill-card__marker {
+  width: 0.25rem;
+  height: 1.125rem;
+  background-color: var(--accent);
+  border-radius: 2px;
+  flex: none;
+}
+.skill-card__note {
+  margin-top: 1rem;
+  font-size: var(--step--1);
+  color: var(--text-muted);
+}
+
+
+/* ==========================================================================
+   9. PROJECTS
+   ========================================================================== */
+
+.project-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  padding: 0.3125rem;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+}
+.filter-btn {
+  padding: 0.4375rem 0.9375rem;
+  background: none;
+  border: 0;
+  border-radius: 100px;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: background-color 0.18s var(--ease), color 0.18s var(--ease);
+}
+.filter-btn:hover { color: var(--text); }
+.filter-btn.is-active {
+  background-color: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-status {
+  min-height: 1.25rem;
+  margin-bottom: 0.75rem;
+  font-size: var(--step--1);
+  color: var(--text-faint);
+}
+
+/* Mobile-first: 1 column, then 2 on tablet, then a 6-track desktop grid.
+   Three featured cards take 2 tracks each (a row of 3); the two compact
+   ones take 3 tracks each (a row of 2). The result is always a balanced
+   3-then-2 layout with no orphan gap. */
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.project-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.project-card__media {
+  position: relative;
+  background-color: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.project-card__media img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease);
+}
+.project-card:hover .project-card__media img { transform: scale(1.035); }
+
+.project-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  flex: 1;
+  padding: 1.5rem;
+}
+/* Title and status pill(s) share one row; the pills wrap underneath the
+   title on narrow cards rather than squashing it. */
+.project-card__head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.375rem 0.625rem;
+}
+.project-card__title { font-size: var(--step-2); }
+.project-card__text { font-size: var(--step-0); color: var(--text-muted); }
+
+.project-card__badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+/* ---- Status pill (Completed / In Progress / Client work) ----
+   One component, three colourways, all driven by the tokens in section 1. */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.1875rem 0.5625rem;
+  border: 1px solid;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* Decorative dot, so it is hidden from assistive tech with the pill's
+   own text doing all the talking. */
+.status-pill::before {
+  content: "";
+  width: 0.375rem;
+  height: 0.375rem;
+  flex: none;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.status-pill--done {
+  color: var(--status-done);
+  background-color: var(--status-done-bg);
+  border-color: color-mix(in srgb, var(--status-done) 35%, transparent);
+}
+.status-pill--wip {
+  color: var(--status-wip);
+  background-color: var(--status-wip-bg);
+  border-color: color-mix(in srgb, var(--status-wip) 35%, transparent);
+}
+.status-pill--client {
+  color: var(--accent);
+  background-color: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.project-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+/* Entrance animation for cards revealed by the filter. */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(0.75rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.project-card.is-filtered-in { animation: card-in 0.32s var(--ease) both; }
+
+/* ---- Compact variant ----
+   The 4th and 5th cards. Below the desktop breakpoint they are simply
+   regular cards (this only trims density); from desktop up they turn
+   horizontal — small image left, text right — so the section ends on a
+   different rhythm instead of five identical tiles. */
+.project-card--compact .project-card__body {
+  gap: 0.625rem;
+  padding: 1.25rem;
+}
+.project-card--compact .project-card__title { font-size: var(--step-1); }
+.project-card--compact .project-card__text { font-size: var(--step--1); }
+
+
+/* ==========================================================================
+   10. EXPERIENCE
+   ========================================================================== */
+
+.timeline { position: relative; padding-left: 1.5rem; }
+/* Vertical rail — hidden on very small screens where it crowds the text. */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.3125rem;
+  width: 1px;
+  background-color: var(--border);
+}
+.timeline__item { position: relative; }
+.timeline__item + .timeline__item { margin-top: 1rem; }
+.timeline__dot {
+  position: absolute;
+  top: 1.5rem;
+  left: -1.5rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-left: -0.0625rem;
+  background-color: var(--accent);
+  border: 2px solid var(--bg-alt);
+  border-radius: 50%;
+}
+
+.timeline__card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.timeline__card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
+
+.timeline__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--text-faint);
+  margin-bottom: 0.625rem;
+}
+.timeline__period { color: var(--accent); font-weight: 500; }
+.timeline__role { font-size: var(--step-2); }
+.timeline__company {
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-top: 0.125rem;
+  margin-bottom: 1rem;
+}
+
+.bullet-list { display: grid; gap: 0.5rem; }
+.bullet-list li {
+  position: relative;
+  padding-left: 1.125rem;
+  font-size: var(--step-0);
+  color: var(--text-muted);
+}
+.bullet-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.6875em;
+  left: 0;
+  width: 0.375rem;
+  height: 1px;
+  background-color: var(--accent);
+}
+
+
+/* ==========================================================================
+   11. EDUCATION
+   ========================================================================== */
+
+.edu-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  max-width: 46rem;
+  padding: 1.75rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.edu-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
+.edu-card__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+}
+.edu-card__icon svg { width: 1.5rem; height: 1.5rem; }
+.edu-card__degree { font-size: var(--step-2); }
+.edu-card__school { color: var(--text-muted); margin-top: 0.25rem; }
+.edu-card__years {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.1875rem 0.5rem;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+
+/* ==========================================================================
+   12. CONTACT
+   ========================================================================== */
+
+.contact__grid { display: grid; gap: 1.25rem; align-items: start; }
+
+.contact-form,
+.contact-info {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.form-row { display: grid; gap: 1rem; }
+.form-field { margin-bottom: 1rem; }
+
+.form-label {
+  display: block;
+  margin-bottom: 0.4375rem;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--text);
+}
+.form-optional { font-weight: 400; color: var(--text-faint); }
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  background-color: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-size: var(--step-0);
+  color: var(--text);
+  transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease), background-color 0.18s var(--ease);
+}
+.form-input::placeholder { color: var(--text-faint); }
+.form-input:hover { border-color: var(--text-faint); }
+.form-input:focus {
+  /* The generic :focus-visible outline is replaced here by a ring built from
+     the same --focus token, so form fields match every other control without
+     doubling up on indicators. */
+  outline: none;
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 45%, transparent);
+}
+.form-input[aria-invalid="true"] { border-color: #c0392b; }
+:root[data-theme="dark"] .form-input[aria-invalid="true"] { border-color: #f0776a; }
+
+.form-textarea { resize: vertical; min-height: 7.5rem; }
+
+.form-error {
+  min-height: 0;
+  margin-top: 0.375rem;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: #c0392b;
+}
+:root[data-theme="dark"] .form-error { color: #f0776a; }
+.form-error:empty { margin-top: 0; }
+
+.form-status {
+  margin-top: 0.875rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: var(--radius-sm);
+  font-size: var(--step--1);
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+.form-status:empty { display: none; }
+.form-status.is-success {
+  background-color: color-mix(in srgb, #15803d 12%, transparent);
+  border-color: color-mix(in srgb, #15803d 35%, transparent);
+  color: light-dark(#12603a, #7ee0a4);
+}
+.form-status.is-error {
+  background-color: color-mix(in srgb, #c0392b 12%, transparent);
+  border-color: color-mix(in srgb, #c0392b 35%, transparent);
+  color: light-dark(#9c2b20, #f3a49b);
+}
+
+.contact-info__title { font-size: var(--step-1); margin-bottom: 1rem; }
+.contact-info__note {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: var(--step--1);
+  color: var(--text-muted);
+}
+
+.contact-list { display: grid; }
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 0;
+}
+.contact-item + .contact-item { border-top: 1px solid var(--border); }
+.contact-item__icon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+  background-color: var(--surface-2);
+  color: var(--text-muted);
+  border-radius: 100px;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.contact-item:hover .contact-item__icon { background-color: var(--accent-soft); color: var(--accent); }
+.contact-item__icon svg { width: 1.0625rem; height: 1.0625rem; }
+.contact-item__body { min-width: 0; flex: 1; }
+.contact-item__label { font-size: 0.75rem; color: var(--text-faint); }
+.contact-item__value {
+  font-size: var(--step-0);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.copy-btn {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: color 0.18s var(--ease), border-color 0.18s var(--ease), background-color 0.18s var(--ease);
+}
+.copy-btn:hover { color: var(--accent); border-color: var(--accent); background-color: var(--accent-soft); }
+.copy-btn__icon { width: 1rem; height: 1rem; grid-area: 1 / 1; }
+.copy-btn__icon--done { display: none; color: #15803d; }
+.copy-btn.is-copied .copy-btn__icon { display: none; }
+.copy-btn.is-copied .copy-btn__icon--done { display: block; }
+
+
+/* ==========================================================================
+   13. FOOTER
+   ========================================================================== */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding-block: 2rem;
+  transition: background-color 0.25s var(--ease);
+}
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.site-footer__name { font-family: var(--font-display); font-weight: 700; font-size: var(--step-0); }
+.site-footer__role { font-size: var(--step--1); color: var(--text-muted); }
+.site-footer__copy { font-size: var(--step--1); color: var(--text-faint); }
+
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9375rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.back-to-top:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+.back-to-top__icon { width: 1rem; height: 1rem; }
+
+
+/* ==========================================================================
+   14. MOTION
+   Scroll-reveal styles are scoped to .js so that with JavaScript disabled
+   everything stays visible.
+   ========================================================================== */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .js .reveal { opacity: 1; transform: none; }
+  .status-badge__dot { animation: none; }
+  .project-card:hover .project-card__media img { transform: none; }
+  .btn:hover, .project-card:hover, .fact-card:hover { transform: none; }
+}
+
+
+/* ==========================================================================
+   15. BREAKPOINTS
+   Mobile-first: everything above is the 320px+ layout. These only add.
+   ========================================================================== */
+
+@media (min-width: 30rem) {
+  :root { --gutter: 1.75rem; }
+  .form-row { grid-template-columns: 1fr 1fr; }
+  .btn--block { width: auto; min-width: 12rem; }
+  .edu-card { padding: 2rem; }
+  .contact-form, .contact-info { padding: 2rem; }
+}
+
+/* Mobile nav becomes a horizontal bar; the hamburger is no longer needed. */
+@media (min-width: 62rem) {
+  :root { --nav-h: 4.5rem; --gutter: 2.5rem; }
+
+  .nav-toggle { display: none; }
+
+  .nav {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.125rem;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+  .nav__list { flex-direction: row; }
+  .nav__link { padding: 0.5rem 0.75rem; font-size: 0.875rem; }
+  .theme-toggle { margin-top: 0; margin-left: 0.5rem; }
+}
+
+@media (min-width: 48rem) {
+  .about__grid { grid-template-columns: 1fr 1fr; }
+  .about__text { grid-column: 1; }
+  .fact-grid { grid-column: 2; grid-row: 1; }
+
+  /* Tablet: two project cards per row. */
+  .project-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 64rem) {
+  .hero__inner { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }
+  .hero__visual { max-width: 24rem; justify-self: end; width: 100%; }
+  .contact__grid { grid-template-columns: 1.1fr 0.9fr; }
+  .skill-card--wide { grid-column: 1 / -1; }
+  .section__head--split { align-items: center; }
+
+  /* Desktop: 6 tracks — featured cards span 2 (3 per row), compact cards
+     span 3 (2 per row). */
+  .project-grid { grid-template-columns: repeat(6, 1fr); }
+  .project-card { grid-column: span 2; }
+  .project-card--compact { grid-column: span 3; }
+
+  /* Compact cards go horizontal here: image left, text right. The media
+     box stretches to the card's height and the image is absolutely
+     positioned inside it, so there is no circular height dependency. */
+  .project-card--compact { flex-direction: row; }
+  .project-card--compact .project-card__media {
+    flex: 0 0 11rem;
+    border-bottom: 0;
+    border-right: 1px solid var(--border);
+  }
+  .project-card--compact .project-card__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 80rem) {
+  :root { --gutter: 3rem; }
+}
+
+
+/* ==========================================================================
+   16. PRINT — the resume itself, straight from the page
+   Ctrl/Cmd+P produces a clean, light, single-column document.
+   ========================================================================== */
+
+@media print {
+  /* Chrome and furniture that mean nothing on paper. */
+  .site-header,
+  .site-footer,
+  .hero__visual,
+  .hero__actions,
+  .social-list,
+  .project-filter,
+  .filter-status,
+  .back-to-top,
+  .copy-btn,
+  .skip-link,
+  .contact-form,
+  .icon-sprite { display: none !important; }
+
+  :root { color-scheme: light; }
+
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .section { padding-block: 1rem; }
+
+  /* Flatten every surface: no fills, no shadows, no dark bands. */
+  .section--alt,
+  .project-card,
+  .timeline__card,
+  .edu-card,
+  .contact-info,
+  .fact-card,
+  .skill-card {
+    background: #fff !important;
+    border-color: #ccc !important;
+    box-shadow: none !important;
+  }
+
+  /* Collapse every multi-column grid so nothing is clipped mid-page. */
+  .project-grid,
+  .skill-grid,
+  .fact-grid,
+  .contact__grid,
+  .form-row,
+  .about__grid,
+  .hero__inner { display: block !important; }
+
+  .project-card,
+  .skill-card,
+  .fact-card,
+  .edu-card,
+  .timeline__card,
+  .contact-info { margin-bottom: 0.6rem; break-inside: avoid; }
+
+  /* Buttons become plain underlined links. */
+  .btn {
+    padding: 0 !important;
+    min-height: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+  .btn::after { content: ""; }
+  .btn__icon { display: none !important; }
+
+  /* Keep real URLs visible so paper copies stay useful. */
+  a[href^="http"]::after,
+  a[href^="mailto"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #555;
+  }
+
+  /* Never let a card or a heading be split across a page. */
+  h1, h2, h3, .section__eyebrow, .project-card__media { break-after: avoid; }
+  .project-card__media { max-height: 5rem; overflow: hidden; }
+  img { max-width: 100% !important; }
+
+  .reveal { opacity: 1 !important; transform: none !important; }
+}

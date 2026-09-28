@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Zaid Shaikh monogram">
+  <rect width="32" height="32" rx="7" fill="#1b1a18"/>
+  <text x="16" y="22" text-anchor="middle" font-family="'Plus Jakarta Sans',system-ui,sans-serif" font-size="15" font-weight="800" fill="#b8410e" letter-spacing="0.5">Z</text>
+  <rect x="7" y="25" width="18" height="2" rx="1" fill="#b8410e" opacity="0.5"/>
+</svg>

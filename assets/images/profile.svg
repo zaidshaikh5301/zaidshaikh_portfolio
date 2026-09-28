@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800" role="img" aria-label="Placeholder portrait">
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.5" fill="#2a2926"/>
+    </pattern>
+  </defs>
+  <rect width="640" height="800" fill="#141413"/>
+  <rect width="640" height="800" fill="url(#grid)"/>
+  <circle cx="320" cy="300" r="96" fill="none" stroke="#4a4741" stroke-width="2"/>
+  <circle cx="320" cy="272" r="34" fill="#33312d"/>
+  <path d="M252 372a68 68 0 0 1 136 0z" fill="#33312d"/>
+  <text x="320" y="520" text-anchor="middle" font-family="'Plus Jakarta Sans',system-ui,sans-serif" font-size="30" font-weight="700" fill="#6f6a62">Replace me</text>
+  <text x="320" y="556" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="16" fill="#57534b">assets/images/profile.svg</text>
+  <text x="320" y="586" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="14" fill="#3f3c37">640 &#215; 800 px</text>
+  <rect x="24" y="24" width="592" height="752" fill="none" stroke="#b8410e" stroke-width="1.5" stroke-dasharray="10 8" opacity="0.55" rx="10"/>
+</svg>

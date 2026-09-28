@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ======================================================================
+       SEO
+       ====================================================================== -->
+  <title>Mohamad Zaid A. Shaikh — Frontend &amp; React Developer</title>
+  <meta name="description" content="Frontend and React developer from Navsari, Gujarat. I build modern, responsive and scalable web applications with React.js, TypeScript, JavaScript and Tailwind CSS. Open to internships, junior roles and freelance work." />
+  <meta name="author" content="Mohamad Zaid A. Shaikh" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f7" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#0b0b0a" />
+  <link rel="canonical" href="https://example.com/" /> <!-- TODO: replace with your real domain -->
+
+  <!-- Open Graph / Facebook / LinkedIn preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Zaid Shaikh — Frontend Developer" />
+  <meta property="og:title" content="Mohamad Zaid A. Shaikh — Frontend &amp; React Developer" />
+  <meta property="og:description" content="Frontend and React developer building modern, responsive and scalable web applications. Open to internships, junior roles and freelance work." />
+  <meta property="og:url" content="https://example.com/" /> <!-- TODO: replace with your real domain -->
+  <meta property="og:image" content="https://example.com/assets/images/og-image.png" /> <!-- TODO: replace -->
+  <meta property="og:locale" content="en_IN" />
+
+  <!-- Twitter / X preview -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mohamad Zaid A. Shaikh — Frontend &amp; React Developer" />
+  <meta name="twitter:description" content="Frontend and React developer building modern, responsive and scalable web applications. Open to internships, junior roles and freelance work." />
+  <meta name="twitter:image" content="https://example.com/assets/images/og-image.png" /> <!-- TODO: replace -->
+
+  <!-- Icons -->
+  <link rel="icon" href="assets/images/favicon.svg" type="/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/images/favicon.svg" />
+
+  <!-- Fonts: preconnect for speed, `display=swap` so text never blocks paint -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Theme is resolved BEFORE first paint so there is never a white flash.
+       Kept inline and tiny on purpose; main.js takes over from here. -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js'); // opt-in for JS-only enhancements (scroll reveal)
+
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (e) { /* private mode */ }
+
+      // No stored choice -> leave data-theme unset so `color-scheme: light dark`
+      // follows the visitor's OS preference automatically.
+      if (stored === 'light' || stored === 'dark') {
+        root.setAttribute('data-theme', stored);
+      }
+    })();
+  </script>
+
+  <!-- Structured data for search engines / rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mohamad Zaid A. Shaikh",
+    "givenName": "Mohamad Zaid",
+    "familyName": "Shaikh",
+    "url": "https://example.com/",
+    "email": "mailto:zaidshaikh3543@gmail.com",
+    "telephone": "+91-76984-20078",
+    "jobTitle": "Frontend Developer",
+    "description": "Frontend and React developer focused on building modern, responsive and scalable web applications using React.js, TypeScript, JavaScript, Tailwind CSS and REST APIs.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Navsari",
+      "addressRegion": "Gujarat",
+      "addressCountry": "IN"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Naran Lala College of Professional & Applied Sciences"
+    },
+    "knowsAbout": [
+      "React.js", "TypeScript", "JavaScript", "Tailwind CSS", "HTML5", "CSS3",
+      "Node.js", "Express.js", "MongoDB", "MySQL", "REST APIs", "JWT Authentication"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/zaid-shaikh-823961345"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <!-- Keyboard users get a skip link as their first tab stop. -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ======================================================================
+       SVG icon sprite. Defined once, referenced everywhere via <use>.
+       Visually collapsed but NOT display:none (that breaks <use> in some
+       older browsers).
+       ====================================================================== -->
+  <svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.96 0-1.32.47-2.39 1.24-3.23-.13-.3-.54-1.53.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.65.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.23 0 4.63-2.8 5.65-5.48 5.95.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58A12 12 0 0 0 12 .5Z"/>
+    </symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14Zm1.78 13.02H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"/>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 8.1 5.6a1.5 1.5 0 0 0 1.8 0L21 7"/>
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6.2 3h2.9l1.5 3.7-2 1.3a12 12 0 0 0 5.4 5.4l1.3-2L18.7 13v2.9A2 2 0 0 1 16.6 18 15 15 0 0 1 3 4.4 2 2 0 0 1 5 2.4Z"/>
+    </symbol>
+    <symbol id="i-location" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/>
+    </symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.5" y="7" width="19" height="13" rx="2.5"/><path d="M8.5 7V5.5A1.5 1.5 0 0 1 10 4h4a1.5 1.5 0 0 1 1.5 1.5V7M2.5 12.5h19"/>
+    </symbol>
+    <symbol id="i-graduation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 8.5 12 4l9.5 4.5L12 13 2.5 8.5Z"/><path d="M6.5 10.6V16c0 1.7 2.5 3 5.5 3s5.5-1.3 5.5-3v-5.4M21.5 8.5V14"/>
+    </symbol>
+    <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m8.5 8-4.5 4 4.5 4M15.5 8l4.5 4-4.5 4M13.5 5l-3 14"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>
+    </symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M15 5.5A2.5 2.5 0 0 0 12.5 3h-6A2.5 2.5 0 0 0 4 5.5v6A2.5 2.5 0 0 0 5.5 14"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m4.5 12.5 5 5 10-11"/>
+    </symbol>
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3.5v11M7.5 10.5 12 15l4.5-4.5M4.5 19.5h15"/>
+    </symbol>
+    <symbol id="i-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13.5 4.5H19.5V10.5M19.5 4.5 11 13M17 14v5.5H4.5V7H10"/>
+    </symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 20V4.5M5.5 11 12 4.5 18.5 11"/>
+    </symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4.5 12h15M13 5.5 19.5 12 13 18.5"/>
+    </symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.5 8.5 0 1 0 20 14.2Z"/>
+    </symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M4 7h16M4 12h16M4 17h16"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M6 6l12 12M18 6 6 18"/>
+    </symbol>
+  </svg>
+
+  <!-- ======================================================================
+       HEADER + STICKY NAVIGATION
+       ====================================================================== -->
+  <header class="site-header" id="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="#home" aria-label="Zaid Shaikh — back to top">
+        <span class="brand__mark" aria-hidden="true">ZS</span>
+        <span class="brand__text">Zaid Shaikh</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu">
+        <svg class="nav-toggle__icon nav-toggle__icon--open" aria-hidden="true"><use href="#i-menu"></use></svg>
+        <svg class="nav-toggle__icon nav-toggle__icon--close" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+
+      <nav class="nav" id="primary-nav" aria-label="Primary">
+        <ul class="nav__list">
+          <li class="nav__item"><a class="nav__link" href="#home">Home</a></li>
+          <li class="nav__item"><a class="nav__link" href="#about">About</a></li>
+          <li class="nav__item"><a class="nav__link" href="#skills">Skills</a></li>
+          <li class="nav__item"><a class="nav__link" href="#projects">Projects</a></li>
+          <li class="nav__item"><a class="nav__link" href="#experience">Experience</a></li>
+          <li class="nav__item"><a class="nav__link" href="#education">Education</a></li>
+          <li class="nav__item"><a class="nav__link" href="#contact">Contact</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch colour theme">
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true"><use href="#i-sun"></use></svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true"><use href="#i-moon"></use></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ====================================================================
+         1. HERO — who am I, in under 5 seconds
+         ==================================================================== -->
+    <section class="section hero" id="home" aria-labelledby="hero-title">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="status-badge">
+            <span class="status-badge__dot" aria-hidden="true"></span>
+            Open to opportunities
+          </p>
+
+          <h1 class="hero__title" id="hero-title">Mohamad Zaid A. Shaikh</h1>
+
+          <p class="hero__role">
+            Frontend Developer <span class="hero__role-sep" aria-hidden="true">/</span> React Developer
+            <span class="hero__role-muted">(Full Stack capable)</span>
+          </p>
+
+          <p class="hero__tagline">
+            I build modern, responsive web interfaces from India —
+            and I care about the code behind them as much as the pixels.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#projects">
+              View Projects
+              <svg class="btn__icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            </a>
+
+            <!-- TODO: add assets/resume.pdf (see README) -->
+            <a class="btn btn--ghost" href="assets/resume.pdf" download="Mohamad-Zaid-Shaikh-Resume.pdf">
+              <svg class="btn__icon" aria-hidden="true"><use href="#i-download"></use></svg>
+              Download Resume
+            </a>
+          </div>
+
+          <ul class="social-list" aria-label="Elsewhere on the web">
+            <!-- TODO: replace "#" with your real GitHub profile URL -->
+            <li>
+              <a class="social-link" href="https://github.com/zaidshaikh5301" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (opens in a new tab)">
+                <svg class="social-link__icon" aria-hidden="true"><use href="#i-github"></use></svg>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://www.linkedin.com/in/zaid-shaikh-823961345" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">
+                <svg class="social-link__icon" aria-hidden="true"><use href="#i-linkedin"></use></svg>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="mailto:zaidshaikh3543@gmail.com" aria-label="Email me">
+                <svg class="social-link__icon" aria-hidden="true"><use href="#i-mail"></use></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="hero__visual">
+          <!-- Photo: assets/images/zaid_profile.jpg
+               Use forward slashes in every src — backslashes only work on
+               Windows and will 404 on GitHub Pages / Netlify / Wasmer. -->
+          <figure class="portrait">
+            <span class="portrait__tick portrait__tick--tl" aria-hidden="true"></span>
+            <span class="portrait__tick portrait__tick--tr" aria-hidden="true"></span>
+            <span class="portrait__tick portrait__tick--bl" aria-hidden="true"></span>
+            <span class="portrait__tick portrait__tick--br" aria-hidden="true"></span>
+
+            <img
+              class="portrait__img"
+              src="assets/images/zaid_profile.jpg"
+              alt="Portrait of Mohamad Zaid A. Shaikh"
+              width="640" height="800"
+              fetchpriority="high" decoding="async" />
+          </figure>
+
+          <dl class="hero-facts">
+            <div class="hero-facts__row">
+              <dt class="hero-facts__key">
+                <svg class="hero-facts__icon" aria-hidden="true"><use href="#i-location"></use></svg>
+                Location
+              </dt>
+              <dd class="hero-facts__val">India</dd>
+            </div>
+            <div class="hero-facts__row">
+              <dt class="hero-facts__key">
+                <svg class="hero-facts__icon" aria-hidden="true"><use href="#i-code"></use></svg>
+                Focus
+              </dt>
+              <dd class="hero-facts__val">React &amp; TypeScript</dd>
+            </div>
+            <div class="hero-facts__row">
+              <dt class="hero-facts__key">
+                <svg class="hero-facts__icon" aria-hidden="true"><use href="#i-clock"></use></svg>
+                Status
+              </dt>
+              <dd class="hero-facts__val">Available now</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         2. ABOUT
+         ==================================================================== -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="section__eyebrow"><span class="section__eyebrow-num">01</span> About</p>
+          <h2 class="section__title" id="about-title">A developer who cares about the whole picture</h2>
+        </header>
+
+        <div class="about__grid">
+          <div class="about__text reveal">
+            <p>
+              I'm a frontend developer focused on building modern, responsive, and
+              scalable web applications using React.js, TypeScript, JavaScript,
+              Tailwind CSS, and REST APIs. I enjoy turning ideas and requirements
+              into clean, user-friendly interfaces, with a focus on reusable
+              components, API integration, application architecture, performance,
+              and maintainable code.
+            </p>
+            <p>
+              Right now I'm completing my BCA while taking on real client and
+              internship work — which is why you'll find real projects below,
+              not tutorial exercises.
+            </p>
+          </div>
+
+          <ul class="fact-grid">
+            <li class="fact-card reveal">
+              <span class="fact-card__icon" aria-hidden="true"><svg><use href="#i-location"></use></svg></span>
+              <h3 class="fact-card__title">Location</h3>
+              <p class="fact-card__text">India — open to remote and on-site work.</p>
+            </li>
+            <li class="fact-card reveal">
+              <span class="fact-card__icon" aria-hidden="true"><svg><use href="#i-graduation"></use></svg></span>
+              <h3 class="fact-card__title">Education</h3>
+              <p class="fact-card__text">BCA at Naran Lala College of Professional &amp; Applied Sciences, 2023&ndash;2026.</p>
+            </li>
+            <li class="fact-card reveal">
+              <span class="fact-card__icon" aria-hidden="true"><svg><use href="#i-code"></use></svg></span>
+              <h3 class="fact-card__title">Focus</h3>
+              <p class="fact-card__text">React, TypeScript, Tailwind CSS, REST APIs and component-driven architecture.</p>
+            </li>
+            <li class="fact-card reveal">
+              <span class="fact-card__icon" aria-hidden="true"><svg><use href="#i-clock"></use></svg></span>
+              <h3 class="fact-card__title">Availability</h3>
+              <p class="fact-card__text">Internships, junior / entry-level roles, and freelance projects.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         3. SKILLS
+         ==================================================================== -->
+    <section class="section section--alt" id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="section__eyebrow"><span class="section__eyebrow-num">02</span> Skills</p>
+          <h2 class="section__title" id="skills-title">What I work with</h2>
+          <p class="section__lede">Grouped by role, so it's clear what I can own end to end.</p>
+        </header>
+
+        <div class="skill-grid">
+          <article class="skill-card reveal">
+            <h3 class="skill-card__title">
+              <span class="skill-card__marker" aria-hidden="true"></span> Frontend
+            </h3>
+            <ul class="tag-list">
+              <li class="tag">React.js</li>
+              <li class="tag">TypeScript</li>
+              <li class="tag">JavaScript (ES6+)</li>
+              <li class="tag">HTML5</li>
+              <li class="tag">CSS3</li>
+              <li class="tag">Tailwind CSS</li>
+              <li class="tag">Bootstrap</li>
+              <li class="tag">React Router</li>
+              <li class="tag">TanStack Query</li>
+              <li class="tag">Axios</li>
+            </ul>
+          </article>
+
+          <article class="skill-card reveal">
+            <h3 class="skill-card__title">
+              <span class="skill-card__marker" aria-hidden="true"></span> Backend
+            </h3>
+            <ul class="tag-list">
+              <li class="tag">Node.js</li>
+              <li class="tag">Express.js</li>
+              <li class="tag">PHP</li>
+              <li class="tag">REST APIs</li>
+              <li class="tag">JWT Authentication</li>
+              <li class="tag">Socket.IO</li>
+            </ul>
+          </article>
+
+          <article class="skill-card reveal">
+            <h3 class="skill-card__title">
+              <span class="skill-card__marker" aria-hidden="true"></span> Database
+            </h3>
+            <ul class="tag-list">
+              <li class="tag">MongoDB</li>
+              <li class="tag">MySQL</li>
+            </ul>
+          </article>
+
+          <article class="skill-card reveal">
+            <h3 class="skill-card__title">
+              <span class="skill-card__marker" aria-hidden="true"></span> Tools
+            </h3>
+            <ul class="tag-list">
+              <li class="tag">Git</li>
+              <li class="tag">GitHub</li>
+              <li class="tag">Vite</li>
+              <li class="tag">VS Code</li>
+              <li class="tag">npm</li>
+              <li class="tag">Swagger / OpenAPI</li>
+            </ul>
+          </article>
+
+          <article class="skill-card skill-card--wide reveal">
+            <h3 class="skill-card__title">
+              <span class="skill-card__marker" aria-hidden="true"></span> AI-assisted development
+            </h3>
+            <ul class="tag-list">
+              <li class="tag">Microsoft Copilot</li>
+              <li class="tag">OpenAI Codex</li>
+            </ul>
+            <p class="skill-card__note">
+              Used as a pair-programming aid for scaffolding, refactoring and
+              documentation — with the design decisions still mine.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         4. PROJECTS — the heaviest visual section, by design
+         ==================================================================== -->
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section__head section__head--split reveal">
+          <div>
+            <p class="section__eyebrow"><span class="section__eyebrow-num">03</span> Projects</p>
+            <h2 class="section__title" id="projects-title">Things I've built</h2>
+          </div>
+
+          <div class="project-filter" role="group" aria-label="Filter projects by technology">
+            <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter-btn" type="button" data-filter="react" aria-pressed="false">React</button>
+            <button class="filter-btn" type="button" data-filter="fullstack" aria-pressed="false">Full Stack</button>
+            <button class="filter-btn" type="button" data-filter="backend" aria-pressed="false">Backend</button>
+          </div>
+        </header>
+
+        <p class="filter-status" data-filter-status role="status" aria-live="polite"></p>
+
+        <div class="project-grid" data-project-grid>
+
+          <!-- Project 1 — CodeBit (featured) -->
+          <article class="project-card reveal" data-tags="react fullstack">
+            <div class="project-card__media">
+              <!-- TODO: replace with a real screenshot at this exact path -->
+              <img
+                src="assets/images/codebit.svg"
+                alt="Screenshot of the CodeBit project discovery page"
+                width="800" height="450" loading="lazy" decoding="async" />
+            </div>
+
+            <div class="project-card__body">
+              <div class="project-card__head">
+                <h3 class="project-card__title">CodeBit</h3>
+                <span class="project-card__badges">
+                  <span class="status-pill status-pill--wip">
+                    <span class="visually-hidden">Project status: </span>In Progress
+                  </span>
+                </span>
+              </div>
+
+              <p class="project-card__text">
+                A developer collaboration platform where people can discover projects,
+                create or apply to them, and work together in one place.
+                Teams manage members and tasks, with real-time discussion threads and
+                GitHub integration so the code and the conversation never drift apart.
+              </p>
+
+              <ul class="tag-list tag-list--compact" aria-label="Tech stack">
+                <li class="tag">React</li>
+                <li class="tag">TypeScript</li>
+                <li class="tag">Node.js</li>
+                <li class="tag">Express</li>
+                <li class="tag">MongoDB</li>
+                <li class="tag">JWT</li>
+                <li class="tag">Socket.IO</li>
+              </ul>
+
+              <div class="project-card__actions">
+                <!-- TODO: add link -->
+                <a class="btn btn--sm btn--primary" href="#" target="_blank" rel="noopener noreferrer"
+                   aria-label="CodeBit — live demo (opens in a new tab)">
+                  <svg class="btn__icon" aria-hidden="true"><use href="#i-external"></use></svg>
+                  Live Demo
+                </a>
+                <!-- TODO: add link -->
+                <a class="btn btn--sm btn--ghost" href="#" target="_blank" rel="noopener noreferrer"
+                   aria-label="CodeBit — GitHub repository (opens in a new tab)">
+                  <svg class="btn__icon" aria-hidden="true"><use href="#i-github"></use></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2 — CodeBit API (featured) -->
+          <article class="project-card reveal" data-tags="backend fullstack">
+            <div class="project-card__media">
+              <img
+                src="assets/images/codebitapi.png"
+                alt="Screenshot of the Swagger documentation for the CodeBit API"
+                width="800" height="450" loading="lazy" decoding="async" />
+            </div>
+
+            <div class="project-card__body">
+              <div class="project-card__head">
+                <h3 class="project-card__title">CodeBit API</h3>
+                <span class="project-card__badges">
+                  <span class="status-pill status-pill--wip">
+                    <span class="visually-hidden">Project status: </span>In Progress
+                  </span>
+                </span>
+              </div>
+
+              <p class="project-card__text">
+                The dedicated backend service powering CodeBit, built as its own
+                TypeScript codebase so it can be consumed independently. Every endpoint
+                is documented in Swagger with request schemas, auth requirements and
+                response examples.
+              </p>
+
+              <ul class="tag-list tag-list--compact" aria-label="Tech stack">
+                <li class="tag">Node.js</li>
+                <li class="tag">Express</li>
+                <li class="tag">TypeScript</li>
+                <li class="tag">MongoDB</li>
+                <li class="tag">JWT</li>
+                <li class="tag">Swagger</li>
+                <li class="tag">Socket.IO</li>
+              </ul>
+
+              <div class="project-card__actions">
+                <!-- TODO: add link -->
+                <a class="btn btn--sm btn--primary" href="https://codebit-api.onrender.com/api/docs/" target="_blank" rel="noopener noreferrer"
+                   aria-label="CodeBit API — live demo (opens in a new tab)">
+                  <svg class="btn__icon" aria-hidden="true"><use href="https://codebit-api.onrender.com/api/docs/#/"></use></svg>
+                  Live Demo
+                </a>
+                <!-- TODO: add link -->
+                <a class="btn btn--sm btn--ghost" href="https://github.com/zaidshaikh5301/codebit-api" target="_blank" rel="noopener noreferrer"
+                   aria-label="CodeBit API — GitHub repository (opens in a new tab)">
+                  <svg class="btn__icon" aria-hidden="true"><use href="#i-github"></use></svg>
+                  GitHub
+                </a>
+                <!-- TODO: add link -->
+                <a class="btn btn--sm btn--ghost" href="https://codebit-api.onrender.com/api/docs/" target="_blank" rel="noopener noreferrer"
+                   aria-label="CodeBit API — Swagger documentation (opens in a new tab)">
+                  <svg class="btn__icon" aria-hidden="true"><use href="#i-external"></use></svg>
+                  API Docs
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3 — Noor Tailor (featured) -->
+          <article class="project-card reveal" data-tags="react fullstack">
+            <div class="project-card__media">
+              <!-- TODO: replace with a real screenshot at this exact path -->
+              <img
+                src="assets/images/noortailor.png"
+                alt="Screenshot of the Noor Tailor storefront home page"
+                width="800" height="450" loading="lazy" decoding="async" />
+            </div>
+
+            <div class="project-card__body">
+              <div class="project-card__head">
+                <h3 class="project-card__title">Noor Tailor</h3>
+                <span class="project-card__badges">
+                  <span class="status-pill status-pill--done">
+                    <span class="visually-hidden">Project status: </span>In Progress
+                  </span>
+                  <span class="status-pill status-pill--client">
+                    <span class="visually-hidden">Project type: </span>Client work
+                  </span>
+                </span>
+              </div>
+
+              <p class="project-card__text">
+                A custom-designed MERN e-commerce website built for a tailoring
+                business — not a template. Designed and built around how the
+                business actually sells: browsable catalogue, product pages and a
+                clean ordering path for real customers.
+              </p>
+
+              <ul class="tag-list tag-list--compact" aria-label="Tech stack">
+                <li class="tag">MongoDB</li>
+                <li class="tag">Express</li>
+                <li class="tag">React</li>
+                <li class="tag">Node.js</li>
+              </ul>
+
+              <div class="project-card__actions">
+                <!-- TODO: add link -->
+                <a class="btn btn--sm btn--primary" href="#" target="_blank" rel="noopener noreferrer"
+                   aria-label="Noor Tailor — live demo (opens in a new tab)">
+                  <svg class="btn__icon" aria-hidden="true"><use href="#i-external"></use></svg>
+                  Live Demo
+                </a>
+                <!-- TODO: add link -->
+                <a class="btn btn--sm btn--ghost" href="#" target="_blank" rel="noopener noreferrer"
+                   aria-label="Noor Tailor — GitHub repository (opens in a new tab)">
+                  <svg class="btn__icon" aria-hidden="true"><use href="#i-github"></use></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4 — TaskFlow (compact) -->
+          <article class="project-card project-card--compact reveal" data-tags="react">
+            <div class="project-card__media">
+              <!-- TODO: replace with a real screenshot at this exact path -->
+              <img
+                src="assets/images/project-taskflow.svg"
+                alt="Screenshot of the TaskFlow board, showing tasks arranged in To Do, In Progress and Done columns"
+                width="800" height="450" loading="lazy" decoding="async" />
+            </div>
+
+            <div class="project-card__body">
+              <div class="project-card__head">
+                <h3 class="project-card__title">TaskFlow</h3>
+                <span class="project-card__badges">
+                  <span class="status-pill status-pill--wip">
+                    <span class="visually-hidden">Project status: </span>In Progress
+                  </span>
+                </span>
+              </div>
+
+              <p class="project-card__text">
+                A task management application built with React and TypeScript.
+                Still in development — the GitHub repository is the place to follow
+                it as it takes shape.
+              </p>
+
+              <ul class="tag-list tag-list--compact" aria-label="Tech stack">
+                <li class="tag">React</li>
+                <li class="tag">TypeScript</li>
+              </ul>
+
+              <div class="project-card__actions">
+                <!-- TODO: add link.
+                     Add a "Live Demo" button here, before the GitHub one,
+                     once a hosted URL is available. -->
+                <a class="btn btn--sm btn--ghost" href="https://github.com/zaidshaikh5301/TaskFlow" target="_blank" rel="noopener noreferrer"
+                   aria-label="TaskFlow — GitHub repository (opens in a new tab)">
+                  <svg class="btn__icon" aria-hidden="true"><use href="https://github.com/zaidshaikh5301/TaskFLow"></use></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 5 — Foodies (compact) -->
+          <article class="project-card project-card--compact reveal" data-tags="fullstack">
+            <div class="project-card__media">
+              <!-- TODO: replace with a real screenshot at this exact path -->
+              <img
+                src="assets/images/foodies.png"
+                alt="Screenshot of the Foodies menu page, showing dishes with prices, Add buttons and a cart panel"
+                width="800" height="450" loading="lazy" decoding="async" />
+            </div>
+
+            <div class="project-card__body">
+              <div class="project-card__head">
+                <h3 class="project-card__title">Foodies</h3>
+                <span class="project-card__badges">
+                  <span class="status-pill status-pill--done">
+                    <span class="visually-hidden">Project status: </span>Completed
+                  </span>
+                </span>
+              </div>
+
+              <p class="project-card__text">
+                A full-stack food ordering website. The front end is built with HTML,
+                CSS and JavaScript, while the backend is handled by PHP with a MySQL
+                database behind it.
+              </p>
+
+              <ul class="tag-list tag-list--compact" aria-label="Tech stack">
+                <li class="tag">PHP</li>
+                <li class="tag">MySQL</li>
+                <li class="tag">HTML</li>
+                <li class="tag">CSS</li>
+                <li class="tag">JavaScript</li>
+              </ul>
+
+              <div class="project-card__actions">
+                <!-- TODO: add link -->
+                <a class="btn btn--sm btn--primary" href="https://foodies-zaidshaikh3543.wasmer.app/" target="_blank" rel="noopener noreferrer"
+                   aria-label="Foodies — live demo (opens in a new tab)">
+                  <svg class="btn__icon" aria-hidden="true"><use href="https://foodies-zaidshaikh3543.wasmer.app/"></use></svg>
+                  Live Demo
+                </a>
+                <!-- TODO: add link -->
+                <a class="btn btn--sm btn--ghost" href="https://github.com/zaidshaikh5301/foodies" target="_blank" rel="noopener noreferrer"
+                   aria-label="Foodies — GitHub repository (opens in a new tab)">
+                  <svg class="btn__icon" aria-hidden="true"><use href="https://github.com/zaidshaikh5301/foodies"></use></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         5. EXPERIENCE
+         ==================================================================== -->
+    <section class="section section--alt" id="experience" aria-labelledby="experience-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="section__eyebrow"><span class="section__eyebrow-num">04</span> Experience</p>
+          <h2 class="section__title" id="experience-title">Where I've worked</h2>
+        </header>
+
+        <ol class="timeline">
+          <li class="timeline__item reveal">
+            <span class="timeline__dot" aria-hidden="true"></span>
+
+            <article class="timeline__card">
+              <p class="timeline__meta">
+                <span class="timeline__period">Oct 2025 &ndash; Nov 2025</span>
+                <span class="timeline__sep" aria-hidden="true">&bull;</span>
+                <span class="timeline__place">Navsari, Gujarat</span>
+              </p>
+
+              <h3 class="timeline__role">Front-End Developer Intern</h3>
+              <p class="timeline__company">Wappzo InfoTech</p>
+
+              <ul class="bullet-list">
+                <li>Built 8+ responsive webpages, improving mobile compatibility across the site.</li>
+                <li>Assisted with PHP &amp; MySQL authentication and dynamic database features.</li>
+                <li>Resolved 20+ UI bugs and improved responsiveness on existing pages.</li>
+                <li>Collaborated with the team using Git and GitHub.</li>
+              </ul>
+            </article>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         6. EDUCATION
+         ==================================================================== -->
+    <section class="section" id="education" aria-labelledby="education-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="section__eyebrow"><span class="section__eyebrow-num">05</span> Education</p>
+          <h2 class="section__title" id="education-title">Education</h2>
+        </header>
+
+        <article class="edu-card reveal">
+          <span class="edu-card__icon" aria-hidden="true"><svg><use href="#i-graduation"></use></svg></span>
+
+          <div class="edu-card__body">
+            <h3 class="edu-card__degree">Bachelor of Computer Applications (BCA)</h3>
+            <p class="edu-card__school">Naran Lala College of Professional &amp; Applied Sciences</p>
+            <p class="edu-card__years">2023 &ndash; 2026</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         7. CONTACT
+         ==================================================================== -->
+    <section class="section section--alt" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="section__eyebrow"><span class="section__eyebrow-num">06</span> Contact</p>
+          <h2 class="section__title" id="contact-title">Let's talk</h2>
+          <p class="section__lede">
+            Hiring, freelancing, or just want to say hi — email is the fastest way
+            to reach me. I reply to everything.
+          </p>
+        </header>
+
+        <div class="contact__grid">
+
+          <!-- ---------- Contact form ----------
+               HOW TO MAKE THIS LIVE:
+               1. Create a form at https://formspree.io (free tier)
+               2. Copy your endpoint id, e.g. https://formspree.io/f/xxxxxxx
+               3. Paste it into `action` and `data-endpoint` below
+               Until then the form validates and hands off to your mail app
+               via a pre-filled mailto: link, so nothing is ever lost. -->
+          <form class="contact-form reveal"
+                id="contact-form"
+                action="#"
+                method="post"
+                data-endpoint=""
+                novalidate>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="cf-name">Name</label>
+                <input class="form-input" type="text" id="cf-name" name="name"
+                       autocomplete="name" placeholder="Your name"
+                       required minlength="2" aria-describedby="cf-name-error" />
+                <p class="form-error" id="cf-name-error" data-error-for="name"></p>
+              </div>
+
+              <div class="form-field">
+                <label class="form-label" for="cf-email">Email</label>
+                <input class="form-input" type="email" id="cf-email" name="email"
+                       autocomplete="email" placeholder="you@example.com"
+                       required aria-describedby="cf-email-error" />
+                <p class="form-error" id="cf-email-error" data-error-for="email"></p>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="cf-subject">Subject <span class="form-optional">(optional)</span></label>
+              <input class="form-input" type="text" id="cf-subject" name="subject"
+                     placeholder="Frontend internship / Freelance project / Other" />
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="cf-message">Message</label>
+              <textarea class="form-input form-textarea" id="cf-message" name="message"
+                        rows="5" placeholder="Tell me a little about the role or project."
+                        required minlength="10" aria-describedby="cf-message-error"></textarea>
+              <p class="form-error" id="cf-message-error" data-error-for="message"></p>
+            </div>
+
+            <button class="btn btn--primary btn--block" type="submit" id="cf-submit">
+              <span class="btn__label">Send message</span>
+              <svg class="btn__icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            </button>
+
+            <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <!-- ---------- Direct contact details ---------- -->
+          <aside class="contact-info reveal" aria-label="Contact details">
+            <h3 class="contact-info__title">Direct details</h3>
+
+            <ul class="contact-list">
+              <li class="contact-item">
+                <span class="contact-item__icon" aria-hidden="true"><svg><use href="#i-mail"></use></svg></span>
+                <div class="contact-item__body">
+                  <p class="contact-item__label">Email</p>
+                  <p class="contact-item__value">
+                    <a class="link" href="mailto:zaidshaikh3543@gmail.com">zaidshaikh3543@gmail.com</a>
+                  </p>
+                </div>
+                <button class="copy-btn" type="button" data-copy-email="zaidshaikh3543@gmail.com"
+                        aria-label="Copy email address to clipboard">
+                  <svg class="copy-btn__icon" aria-hidden="true"><use href="#i-copy"></use></svg>
+                  <svg class="copy-btn__icon copy-btn__icon--done" aria-hidden="true"><use href="#i-check"></use></svg>
+                </button>
+              </li>
+
+              <li class="contact-item">
+                <span class="contact-item__icon" aria-hidden="true"><svg><use href="#i-phone"></use></svg></span>
+                <div class="contact-item__body">
+                  <p class="contact-item__label">Phone</p>
+                  <p class="contact-item__value">
+                    <a class="link" href="tel:+917698420078">+91 76984 20078</a>
+                  </p>
+                </div>
+              </li>
+
+              <li class="contact-item">
+                <span class="contact-item__icon" aria-hidden="true"><svg><use href="#i-linkedin"></use></svg></span>
+                <div class="contact-item__body">
+                  <p class="contact-item__label">LinkedIn</p>
+                  <p class="contact-item__value">
+                    <a class="link" href="https://www.linkedin.com/in/zaid-shaikh-823961345" target="_blank" rel="noopener noreferrer">
+                      zaidshaikh
+                    </a>
+                  </p>
+                </div>
+              </li>
+
+              <li class="contact-item">
+                <span class="contact-item__icon" aria-hidden="true"><svg><use href="#i-location"></use></svg></span>
+                <div class="contact-item__body">
+                  <p class="contact-item__label">Location</p>
+                  <p class="contact-item__value">India</p>
+                </div>
+              </li>
+            </ul>
+
+            <p class="contact-info__note">
+              Prefer a quick call? Mention a good time in your email and I'll
+              call you back.
+            </p>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <!-- Deferred so parsing is never blocked; the inline head script above
+       already handled the no-flash theme setup. -->
+  <script src="js/main.js" defer></script>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <p class="site-footer__name">Mohamad Zaid A. Shaikh</p>
+        <p class="site-footer__role">Frontend &amp; React Developer &middot; India</p>
+      </div>
+
+      <p class="site-footer__copy">&copy; <span data-year>2026</span> Zaid Shaikh. All rights reserved.</p>
+
+      <a class="back-to-top" href="#home">
+        Back to top
+        <svg class="back-to-top__icon" aria-hidden="true"><use href="#i-arrow-up"></use></svg>
+      </a>
+    </div>
+  </footer>
+</body>
+</html>
