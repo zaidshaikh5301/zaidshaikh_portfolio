@@ -1153,7 +1153,17 @@ a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset:
 .contact-item__value {
   font-size: var(--step-0);
   font-weight: 500;
-  word-break: break-word;
+  /* `break-word` (not `anywhere`): on very narrow screens the address falls
+     onto two lines, and this lets it prefer the <wbr> after the @ instead of
+     chopping a character off the end of the domain. */
+  overflow-wrap: break-word;
+}
+/* A bare inline link is only ~19px tall, which is under the WCAG 2.2 AA
+   minimum target size of 24x24. Vertical padding lifts the whole touch
+   area to 27px without changing how the text reads. */
+.contact-item__value .link {
+  display: inline-block;
+  padding-block: 0.25rem;
 }
 
 .copy-btn {
@@ -1255,6 +1265,14 @@ a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset:
   .btn--block { width: auto; min-width: 12rem; }
   .edu-card { padding: 2rem; }
   .contact-form, .contact-info { padding: 2rem; }
+}
+
+/* Narrow phones: trim the contact card so the long email address has as
+   much room as the icon and copy button allow. */
+@media (max-width: 29.99rem) {
+  .contact-form,
+  .contact-info { padding: 1.25rem; }
+  .contact-item { gap: 0.75rem; }
 }
 
 /* Mobile nav becomes a horizontal bar; the hamburger is no longer needed. */
